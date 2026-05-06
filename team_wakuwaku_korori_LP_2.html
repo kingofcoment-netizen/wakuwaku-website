@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team ワクワクコロリ</title>
+<style>
+:root {
+  --teal:      #2A7C76;
+  --teal-dark: #1B5250;
+  --teal-pale: #E8F5F3;
+  --gold:      #C8973A;
+  --gold-pale: #FBF3E4;
+  --cream:     #FAF7F2;
+  --ink:       #232020;
+  --mid:       #7A7068;
+  --rule:      #DDD8D0;
+  --ff-serif:  'Hiragino Mincho ProN','Yu Mincho','ヒラギノ明朝 ProN','游明朝',Georgia,serif;
+  --ff-sans:   'Hiragino Kaku Gothic ProN','Yu Gothic','ヒラギノ角ゴ ProN','游ゴシック','Meiryo',sans-serif;
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body { background:var(--cream); color:var(--ink); font-family:var(--ff-sans); line-height:1.8; }
+
+/* ── UTILITIES ────────────────────────────────────────────── */
+.wrap { max-width:900px; margin:0 auto; padding:0 32px; }
+.section { padding:96px 0; }
+.section-sm { padding:64px 0; }
+.fade { opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+.fade.in { opacity:1; transform:none; }
+.stagger:nth-child(1){transition-delay:.05s}
+.stagger:nth-child(2){transition-delay:.15s}
+.stagger:nth-child(3){transition-delay:.25s}
+.stagger:nth-child(4){transition-delay:.35s}
+.stagger:nth-child(5){transition-delay:.45s}
+.stagger:nth-child(6){transition-delay:.55s}
+
+/* ── HERO ─────────────────────────────────────────────────── */
+#hero {
+  min-height:100vh; display:flex; flex-direction:column;
+  justify-content:center; align-items:center; text-align:center;
+  position:relative; overflow:hidden; padding:80px 32px;
+}
+#hero-bg {
+  position:absolute; inset:0; z-index:0;
+  display:flex; align-items:center; justify-content:center;
+}
+#hero-content { position:relative; z-index:1; }
+.hero-label {
+  font-size:.78rem; letter-spacing:.25em; text-transform:uppercase;
+  color:var(--teal); font-family:var(--ff-sans); font-weight:500;
+  margin-bottom:24px; display:block;
+}
+.hero-title {
+  font-family:var(--ff-serif); font-size:clamp(2.6rem,7vw,4.2rem);
+  font-weight:400; color:var(--teal-dark); line-height:1.25;
+  letter-spacing:.04em; margin-bottom:32px;
+}
+.hero-title span { color:var(--gold); }
+.hero-tagline {
+  font-family:var(--ff-serif); font-size:clamp(1rem,2.5vw,1.3rem);
+  color:var(--mid); font-style:italic; letter-spacing:.05em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
+  display:inline-block; padding:12px 40px; margin-bottom:48px;
+}
+.hero-scroll {
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  font-size:.75rem; letter-spacing:.2em; color:var(--mid);
+}
+.hero-scroll-line {
+  width:1px; height:48px; background:linear-gradient(to bottom, var(--teal), transparent);
+  animation:scrollpulse 2s ease-in-out infinite;
+}
+@keyframes scrollpulse { 0%,100%{opacity:.4;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.15)} }
+
+/* ── PHILOSOPHY ───────────────────────────────────────────── */
+#philosophy {
+  background:var(--teal-dark); color:#fff;
+  padding:80px 0;
+}
+.philosophy-inner {
+  max-width:720px; margin:0 auto; padding:0 32px;
+  text-align:center;
+}
+.philosophy-en {
+  font-size:.78rem; letter-spacing:.3em; color:rgba(255,255,255,.5);
+  margin-bottom:16px;
+}
+.philosophy-quote {
+  font-family:var(--ff-serif); font-size:clamp(1.2rem,3vw,1.7rem);
+  line-height:2; letter-spacing:.05em;
+  border-left:3px solid var(--gold); text-align:left;
+  padding-left:28px; margin:32px 0;
+}
+.philosophy-body { color:rgba(255,255,255,.8); font-size:.95rem; line-height:2; }
+
+/* ── SECTION HEADERS ──────────────────────────────────────── */
+.sec-header { margin-bottom:56px; }
+.sec-eyebrow {
+  font-size:.75rem; letter-spacing:.3em; color:var(--gold);
+  font-weight:500; display:block; margin-bottom:8px;
+}
+.sec-title {
+  font-family:var(--ff-serif); font-size:clamp(1.6rem,4vw,2.2rem);
+  font-weight:400; color:var(--teal-dark); letter-spacing:.04em;
+}
+.sec-title::after {
+  content:''; display:block; width:40px; height:2px;
+  background:var(--gold); margin-top:16px;
+}
+
+/* ── PURPOSE ──────────────────────────────────────────────── */
+.purpose-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.purpose-card {
+  background:#fff; border:1px solid var(--rule); border-radius:12px;
+  padding:32px; position:relative; overflow:hidden;
+}
+.purpose-card::before {
+  content:''; position:absolute; top:0; left:0;
+  width:3px; height:100%; background:var(--teal);
+}
+.purpose-icon { margin-bottom:16px; }
+.purpose-num {
+  font-family:var(--ff-serif); font-size:2rem; color:var(--teal-pale);
+  font-weight:400; line-height:1;
+}
+.purpose-text { font-size:.93rem; line-height:1.9; color:var(--ink); }
+
+/* ── ACTIVITIES ───────────────────────────────────────────── */
+#activities { background:#fff; }
+.act-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.act-card {
+  border:1px solid var(--rule); border-radius:10px; padding:28px 24px;
+  transition:border-color .2s, box-shadow .2s; cursor:default;
+}
+.act-card:hover { border-color:var(--teal); box-shadow:0 4px 20px rgba(42,124,118,.1); }
+.act-icon { margin-bottom:16px; }
+.act-name {
+  font-family:var(--ff-serif); font-size:1rem; color:var(--teal-dark);
+  font-weight:400; margin-bottom:8px; letter-spacing:.03em;
+}
+.act-desc { font-size:.83rem; color:var(--mid); line-height:1.8; }
+
+/* ── CREW ─────────────────────────────────────────────────── */
+#crew { background:var(--teal-pale); }
+.crew-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.crew-card {
+  background:#fff; border-radius:10px; padding:24px 16px;
+  text-align:center; border:1px solid rgba(42,124,118,.15);
+  transition:transform .2s, box-shadow .2s;
+}
+.crew-card:hover { transform:translateY(-3px); box-shadow:0 6px 20px rgba(42,124,118,.12); }
+.crew-icon { margin:0 auto 12px; }
+.crew-role {
+  font-size:.82rem; font-weight:500; color:var(--teal-dark);
+  margin-bottom:4px; letter-spacing:.02em;
+}
+.crew-sub { font-size:.73rem; color:var(--mid); line-height:1.6; }
+
+/* ── BENEFITS ─────────────────────────────────────────────── */
+.benefits-cols { display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+.benefits-col h3 {
+  font-family:var(--ff-serif); font-size:1.1rem; color:var(--teal-dark);
+  margin-bottom:20px; padding-bottom:10px;
+  border-bottom:1px solid var(--rule); font-weight:400;
+}
+.benefit-item {
+  display:flex; gap:12px; margin-bottom:16px; align-items:flex-start;
+}
+.benefit-dot {
+  width:6px; height:6px; border-radius:50%; background:var(--gold);
+  margin-top:9px; flex-shrink:0;
+}
+.benefit-text { font-size:.88rem; line-height:1.85; }
+
+/* ── FLOW ─────────────────────────────────────────────────── */
+#flow { background:var(--gold-pale); }
+.flow-row { display:flex; align-items:center; gap:0; }
+.flow-step {
+  flex:1; text-align:center; padding:20px 8px; position:relative;
+}
+.flow-step::after {
+  content:'→'; position:absolute; right:-12px; top:50%;
+  transform:translateY(-50%); color:var(--gold); font-size:1.2rem;
+  z-index:1;
+}
+.flow-step:last-child::after { display:none; }
+.flow-circle {
+  width:64px; height:64px; border-radius:50%;
+  background:var(--teal); display:flex; align-items:center;
+  justify-content:center; margin:0 auto 10px;
+}
+.flow-label {
+  font-family:var(--ff-serif); font-size:.88rem; color:var(--teal-dark);
+  line-height:1.5; letter-spacing:.02em;
+}
+
+/* ── CTA ──────────────────────────────────────────────────── */
+#cta {
+  background:var(--teal); color:#fff;
+  padding:100px 0; text-align:center;
+}
+.cta-title {
+  font-family:var(--ff-serif); font-size:clamp(1.5rem,4vw,2.2rem);
+  font-weight:400; letter-spacing:.06em; margin-bottom:16px;
+  line-height:1.7;
+}
+.cta-sub { color:rgba(255,255,255,.75); font-size:.95rem; margin-bottom:48px; }
+.cta-catchcopy {
+  display:flex; flex-wrap:wrap; gap:12px; justify-content:center;
+  margin-bottom:56px;
+}
+.cta-cc {
+  background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.3);
+  border-radius:40px; padding:8px 20px;
+  font-family:var(--ff-serif); font-size:.88rem;
+  letter-spacing:.04em; color:rgba(255,255,255,.9);
+}
+.cta-btn {
+  display:inline-block; background:var(--gold); color:#fff;
+  font-family:var(--ff-serif); font-size:1rem; letter-spacing:.1em;
+  padding:18px 56px; border-radius:4px; text-decoration:none;
+  transition:opacity .2s;
+}
+.cta-btn:hover { opacity:.85; }
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+footer {
+  background:var(--teal-dark); color:rgba(255,255,255,.5);
+  text-align:center; padding:32px; font-size:.78rem;
+  letter-spacing:.1em;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────────── */
+@media(max-width:700px){
+  .purpose-grid,.act-grid,.benefits-cols { grid-template-columns:1fr; }
+  .crew-grid { grid-template-columns:repeat(2,1fr); }
+  .flow-row { flex-direction:column; }
+  .flow-step::after { content:'↓'; right:auto; top:auto; bottom:-16px; left:50%; transform:translateX(-50%); }
+  .flow-step { width:100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ HERO -->
+<section id="hero">
+  <div id="hero-bg">
+    <svg viewBox="0 0 800 600" width="100%" style="position:absolute;inset:0;opacity:.13">
+      <circle cx="400" cy="300" r="260" fill="none" stroke="#2A7C76" stroke-width="1"/>
+      <circle cx="400" cy="300" r="190" fill="none" stroke="#2A7C76" stroke-width="1"/>
+      <circle cx="400" cy="300" r="120" fill="none" stroke="#C8973A" stroke-width="1"/>
+      <circle cx="400" cy="300" r="55"  fill="#2A7C76" opacity=".2"/>
+      <!-- life arcs -->
+      <path d="M200 300 Q400 80 600 300" fill="none" stroke="#C8973A" stroke-width="1.5" opacity=".7"/>
+      <path d="M170 300 Q400 50 630 300" fill="none" stroke="#2A7C76" stroke-width="1" opacity=".5"/>
+      <!-- dots on arc -->
+      <circle cx="250" cy="215" r="4" fill="#C8973A" opacity=".8"/>
+      <circle cx="400" cy="160" r="5" fill="#2A7C76" opacity=".8"/>
+      <circle cx="555" cy="215" r="4" fill="#C8973A" opacity=".8"/>
+    </svg>
+  </div>
+  <div id="hero-content" class="fade">
+    <span class="hero-label">企画概要</span>
+    <h1 class="hero-title">Team<br><span>ワクワクコロリ</span></h1>
+    <p class="hero-tagline">よく生き、しっかり遺し、納得して旅立つ。</p>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span>scroll</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ PHILOSOPHY -->
+<section id="philosophy">
+  <div class="philosophy-inner fade">
+    <span class="philosophy-en">PHILOSOPHY</span>
+    <blockquote class="philosophy-quote">
+      「よく生きること」と「よく終えること」を、<br>
+      分けて考えない。<br>
+      人生の終盤を見つめることが、<br>
+      いまを豊かに生きることにつながる。
+    </blockquote>
+    <p class="philosophy-body">
+      Teamワクワクコロリは、人生の充実から看取り、次世代への継承までを一つの流れとして支える実践共同体です。医療・介護・葬祭・出版・地域活動・子ども支援——本来ばらばらに見えるこれらの活動は、「人が納得して生き、納得して人生を終える」という一点でつながっています。そのつながりを、相互支援と事業のかたちにまで落とし込むことが、このチームの核心です。
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ PURPOSE -->
+<section id="purpose" class="section">
+  <div class="wrap">
+    <div class="sec-header fade">
+      <span class="sec-eyebrow">PURPOSE</span>
+      <h2 class="sec-title">目的</h2>
+    </div>
+    <div class="purpose-grid">
+      <div class="purpose-card fade stagger">
+        <div class="purpose-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="18" fill="none" stroke="#E8F5F3" stroke-width="2"/>
+            <path d="M12 20 Q20 8 28 20 Q20 32 12 20Z" fill="#2A7C76" opacity=".8"/>
+            <circle cx="20" cy="20" r="3" fill="#C8973A"/>
+          </svg>
+        </div>
+        <div class="purpose-num">01</div>
+        <p class="purpose-text">多くの人が、自分らしく充実した人生を送り、納得して人生を終えられるよう支援する</p>
+      </div>
+      <div class="purpose-card fade stagger">
+        <div class="purpose-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40">
+            <rect x="6" y="10" width="28" height="22" rx="4" fill="none" stroke="#2A7C76" stroke-width="1.5"/>
+            <path d="M14 10 L14 6 M26 10 L26 6" stroke="#2A7C76" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M11 20 L17 20 M11 25 L23 25" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="purpose-num">02</div>
+        <p class="purpose-text">終末期や死にまつわる話題を、前向きに語れる社会的空気をつくる</p>
+      </div>
+      <div class="purpose-card fade stagger">
+        <div class="purpose-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40">
+            <circle cx="14" cy="16" r="5" fill="none" stroke="#2A7C76" stroke-width="1.5"/>
+            <circle cx="26" cy="16" r="5" fill="none" stroke="#2A7C76" stroke-width="1.5"/>
+            <path d="M8 32 Q14 22 20 26 Q26 22 32 32" fill="none" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="purpose-num">03</div>
+        <p class="purpose-text">「遺す」「つなぐ」「支え合う」ことを通じて、人の生をより豊かにする</p>
+      </div>
+      <div class="purpose-card fade stagger">
+        <div class="purpose-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40">
+            <path d="M8 32 L20 8 L32 32 Z" fill="none" stroke="#2A7C76" stroke-width="1.5" stroke-linejoin="round"/>
+            <line x1="14" y1="25" x2="26" y2="25" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="purpose-num">04</div>
+        <p class="purpose-text">専門性を事業として活かしながら、理念と収益を両立させ継続可能なチームをつくる</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ FLOW DIAGRAM -->
+<section id="flow" class="section-sm">
+  <div class="wrap">
+    <div class="sec-header fade" style="text-align:center">
+      <span class="sec-eyebrow">CONCEPT</span>
+      <h2 class="sec-title" style="display:inline-block">遺すことで、生きるを深める。</h2>
+    </div>
+    <div class="flow-row fade">
+      <div class="flow-step">
+        <div class="flow-circle">
+          <svg width="30" height="30" viewBox="0 0 30 30">
+            <path d="M8 22 L8 8 L22 8" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M8 8 L22 22" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="flow-label">想いを<br>言語化する</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-circle">
+          <svg width="30" height="30" viewBox="0 0 30 30">
+            <circle cx="10" cy="15" r="4" fill="none" stroke="white" stroke-width="1.5"/>
+            <circle cx="20" cy="15" r="4" fill="none" stroke="white" stroke-width="1.5"/>
+            <line x1="14" y1="15" x2="16" y2="15" stroke="#C8973A" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="flow-label">関係を<br>つなぎ直す</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-circle">
+          <svg width="30" height="30" viewBox="0 0 30 30">
+            <rect x="7" y="9" width="16" height="13" rx="2" fill="none" stroke="white" stroke-width="1.5"/>
+            <path d="M11 14 L14 17 L19 12" stroke="#C8973A" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="flow-label">記憶や価値観を<br>遺す</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-circle">
+          <svg width="30" height="30" viewBox="0 0 30 30">
+            <path d="M15 6 L15 20" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M15 6 Q19 10 23 10" stroke="#C8973A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <circle cx="15" cy="23" r="2" fill="white"/>
+          </svg>
+        </div>
+        <div class="flow-label">最期を<br>自分らしく整える</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-circle">
+          <svg width="30" height="30" viewBox="0 0 30 30">
+            <path d="M15 10 L17 14 L22 15 L18 19 L19 24 L15 22 L11 24 L12 19 L8 15 L13 14Z" fill="none" stroke="white" stroke-width="1.2" stroke-linejoin="round"/>
+            <path d="M15 10 L17 14 L22 15 L18 19 L19 24 L15 22 L11 24 L12 19 L8 15 L13 14Z" fill="#C8973A" opacity=".3"/>
+          </svg>
+        </div>
+        <div class="flow-label">次世代へ<br>希望を渡す</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ ACTIVITIES -->
+<section id="activities" class="section">
+  <div class="wrap">
+    <div class="sec-header fade">
+      <span class="sec-eyebrow">ACTIVITIES</span>
+      <h2 class="sec-title">主な活動</h2>
+    </div>
+    <div class="act-grid">
+      <div class="act-card fade stagger">
+        <div class="act-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44">
+            <rect x="8" y="6" width="28" height="33" rx="3" fill="var(--teal-pale)" stroke="var(--teal)" stroke-width="1.2"/>
+            <path d="M8 16 L36 16" stroke="var(--teal)" stroke-width=".8" opacity=".4"/>
+            <line x1="14" y1="23" x2="30" y2="23" stroke="var(--teal)" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="14" y1="29" x2="26" y2="29" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="act-name">書籍化・記録化</div>
+        <p class="act-desc">活動・人生観・実践知を書籍・映像として可視化。クルー自身の棚卸しにもなります。</p>
+      </div>
+      <div class="act-card fade stagger">
+        <div class="act-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44">
+            <circle cx="22" cy="22" r="14" fill="var(--teal-pale)" stroke="var(--teal)" stroke-width="1.2"/>
+            <path d="M14 28 Q22 12 30 28" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="14" cy="28" r="2.5" fill="var(--teal)"/>
+            <circle cx="22" cy="16" r="2.5" fill="var(--teal)"/>
+            <circle cx="30" cy="28" r="2.5" fill="var(--teal)"/>
+          </svg>
+        </div>
+        <div class="act-name">生前葬・人生感謝祭</div>
+        <p class="act-desc">生きているうちに感謝と対話を生む場を。「死」をタブー視しない文化づくりの第一歩。</p>
+      </div>
+      <div class="act-card fade stagger">
+        <div class="act-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44">
+            <rect x="7" y="14" width="19" height="14" rx="4" fill="var(--teal-pale)" stroke="var(--teal)" stroke-width="1.2"/>
+            <path d="M26 19 L36 14 L36 28 L26 23Z" fill="var(--teal-pale)" stroke="var(--teal)" stroke-width="1.2"/>
+            <circle cx="14" cy="20" r="2" fill="var(--gold)"/>
+          </svg>
+        </div>
+        <div class="act-name">ACP・余命デザイン</div>
+        <p class="act-desc">セミナーや研修を通じ、元気なうちから最期を考え家族と共有する文化を広めます。</p>
+      </div>
+      <div class="act-card fade stagger">
+        <div class="act-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44">
+            <path d="M22 8 L34 18 L34 36 L10 36 L10 18Z" fill="var(--teal-pale)" stroke="var(--teal)" stroke-width="1.2" stroke-linejoin="round"/>
+            <rect x="17" y="25" width="10" height="11" rx="2" fill="var(--teal)" opacity=".25"/>
+            <path d="M16 18 Q22 14 28 18" fill="none" stroke="var(--gold)" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="act-name">ホームホスピス</div>
+        <p class="act-desc">病院でも施設でもない、あたたかな居場所と在宅看取りの選択肢を広げます。</p>
+      </div>
+      <div class="act-card fade stagger">
+        <div class="act-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44">
+            <circle cx="16" cy="18" r="5" fill="var(--teal-pale)" stroke="var(--teal)" stroke-width="1.2"/>
+            <circle cx="28" cy="18" r="5" fill="var(--teal-pale)" stroke="var(--teal)" stroke-width="1.2"/>
+            <circle cx="22" cy="28" r="5" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="act-name">多世代交流会</div>
+        <p class="act-desc">子どもから高齢者まで「生きること」「支えること」を体験的に共有する場をつくります。</p>
+      </div>
+      <div class="act-card fade stagger">
+        <div class="act-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44">
+            <path d="M22 12 L32 26 L22 34 L12 26Z" fill="none" stroke="var(--teal)" stroke-width="1.2" stroke-linejoin="round"/>
+            <path d="M22 12 L22 34 M12 26 L32 26" stroke="var(--gold)" stroke-width="1" opacity=".6"/>
+            <circle cx="22" cy="12" r="2.5" fill="var(--teal)"/>
+            <circle cx="32" cy="26" r="2.5" fill="var(--teal)"/>
+            <circle cx="22" cy="34" r="2.5" fill="var(--teal)"/>
+            <circle cx="12" cy="26" r="2.5" fill="var(--teal)"/>
+          </svg>
+        </div>
+        <div class="act-name">相互支援ネットワーク</div>
+        <p class="act-desc">紹介・発信・協業・クラウドファンディングで支え合い、一人では届かない層へ届けます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ CREW -->
+<section id="crew" class="section">
+  <div class="wrap">
+    <div class="sec-header fade">
+      <span class="sec-eyebrow">CREW</span>
+      <h2 class="sec-title">クルー構成（想定）</h2>
+    </div>
+    <p class="fade" style="margin-bottom:36px;color:var(--mid);font-size:.9rem">「人生の充実や終末期の納得感につながる活動をしている人」「人が何かを遺すお手伝いをしている人」を中心に構成します。</p>
+    <div class="crew-grid">
+      <div class="crew-card fade stagger">
+        <div class="crew-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <rect x="6" y="5" width="24" height="27" rx="3" fill="var(--teal-pale)" stroke="var(--teal)" stroke-width="1.2"/>
+            <line x1="11" y1="14" x2="25" y2="14" stroke="var(--teal)" stroke-width="1" opacity=".6"/>
+            <line x1="11" y1="19" x2="22" y2="19" stroke="var(--gold)" stroke-width="1"/>
+            <line x1="11" y1="24" x2="20" y2="24" stroke="var(--teal)" stroke-width="1" opacity=".4"/>
+          </svg>
+        </div>
+        <div class="crew-role">書籍・動画等</div>
+        <div class="crew-sub">谷垣他・ライター</div>
+      </div>
+      <div class="crew-card fade stagger">
+        <div class="crew-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="12" fill="var(--teal-pale)" stroke="var(--teal)" stroke-width="1.2"/>
+            <path d="M12 24 Q18 10 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="18" cy="14" r="2" fill="var(--teal)"/>
+          </svg>
+        </div>
+        <div class="crew-role">余命デザイン</div>
+        <div class="crew-sub">朴さん・看護師</div>
+      </div>
+      <div class="crew-card fade stagger">
+        <div class="crew-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="12" fill="var(--teal-pale)" stroke="var(--teal)" stroke-width="1.2"/>
+            <path d="M13 22 Q18 14 23 22" fill="none" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M13 22 Q18 30 23 22" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="crew-role">生前想・儀式</div>
+        <div class="crew-sub">本西さん・子どもの支援</div>
+      </div>
+      <div class="crew-card fade stagger">
+        <div class="crew-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <path d="M10 28 L10 16 Q18 6 26 16 L26 28Z" fill="var(--teal-pale)" stroke="var(--teal)" stroke-width="1.2" stroke-linejoin="round"/>
+            <path d="M14 21 Q18 17 22 21" fill="none" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="crew-role">医療・在宅</div>
+        <div class="crew-sub">在宅医・看護師</div>
+      </div>
+      <div class="crew-card fade stagger">
+        <div class="crew-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <circle cx="14" cy="14" r="5" fill="none" stroke="var(--teal)" stroke-width="1.2"/>
+            <circle cx="22" cy="16" r="4" fill="none" stroke="var(--teal)" stroke-width="1.2"/>
+            <path d="M9 28 Q14 20 19 24 Q24 20 27 28" fill="none" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="crew-role">介護・子ども</div>
+        <div class="crew-sub">介護事業者ほか</div>
+      </div>
+      <div class="crew-card fade stagger">
+        <div class="crew-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <rect x="8" y="16" width="20" height="14" rx="2" fill="var(--teal-pale)" stroke="var(--teal)" stroke-width="1.2"/>
+            <path d="M8 17 L18 9 L28 17" fill="none" stroke="var(--teal)" stroke-width="1.2" stroke-linejoin="round"/>
+            <rect x="14" y="22" width="8" height="8" rx="1" fill="var(--gold)" opacity=".4"/>
+          </svg>
+        </div>
+        <div class="crew-role">地域・多世代</div>
+        <div class="crew-sub">コミュニティ運営者</div>
+      </div>
+      <div class="crew-card fade stagger">
+        <div class="crew-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <line x1="18" y1="7" x2="18" y2="29" stroke="var(--teal)" stroke-width="1.2"/>
+            <path d="M11 13 L18 7 L25 13" fill="none" stroke="var(--teal)" stroke-width="1.2"/>
+            <line x1="11" y1="19" x2="25" y2="19" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="11" cy="19" r="2" fill="var(--teal)"/>
+            <circle cx="25" cy="19" r="2" fill="var(--teal)"/>
+          </svg>
+        </div>
+        <div class="crew-role">法律・相続</div>
+        <div class="crew-sub">司法書士ほか</div>
+      </div>
+      <div class="crew-card fade stagger">
+        <div class="crew-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <rect x="8" y="12" width="20" height="14" rx="3" fill="var(--teal-pale)" stroke="var(--teal)" stroke-width="1.2"/>
+            <circle cx="18" cy="19" r="3" fill="none" stroke="var(--gold)" stroke-width="1.2"/>
+            <path d="M12 12 L12 8 M24 12 L24 8" stroke="var(--teal)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="crew-role">デザイン・広報</div>
+        <div class="crew-sub">デザイナーほか</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ BENEFITS -->
+<section id="benefits" class="section" style="background:#fff">
+  <div class="wrap">
+    <div class="sec-header fade">
+      <span class="sec-eyebrow">BENEFITS</span>
+      <h2 class="sec-title">参加メリット</h2>
+    </div>
+    <div class="benefits-cols">
+      <div class="fade">
+        <h3>クルーにとって</h3>
+        <div class="benefit-item"><div class="benefit-dot"></div><p class="benefit-text">理念に共感する仲間とつながり、精神的に孤立しにくくなる</p></div>
+        <div class="benefit-item"><div class="benefit-dot"></div><p class="benefit-text">一人では届かなかった層へ、仲間の力でアプローチできる</p></div>
+        <div class="benefit-item"><div class="benefit-dot"></div><p class="benefit-text">発信力・信用力が高まり、協業・紹介による事業機会が生まれる</p></div>
+        <div class="benefit-item"><div class="benefit-dot"></div><p class="benefit-text">自身の活動が社会的な文脈の中に位置づけられる</p></div>
+        <div class="benefit-item"><div class="benefit-dot"></div><p class="benefit-text">善意だけに依存しない——理念と収益の両立を目指せる</p></div>
+      </div>
+      <div class="fade">
+        <h3>社会にとって</h3>
+        <div class="benefit-item"><div class="benefit-dot"></div><p class="benefit-text">終末期・看取りに関する前向きな啓蒙が社会に広まる</p></div>
+        <div class="benefit-item"><div class="benefit-dot"></div><p class="benefit-text">医療・介護・葬祭・文化が分断されず連携するモデルができる</p></div>
+        <div class="benefit-item"><div class="benefit-dot"></div><p class="benefit-text">「遺す」文化が豊かになり、地域のつながりが再生する</p></div>
+        <div class="benefit-item"><div class="benefit-dot"></div><p class="benefit-text">子どもから高齢者まで、生き方を考える接点が増える</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ CTA -->
+<section id="cta">
+  <div class="wrap fade">
+    <p class="cta-title">ご関心をお持ちいただけましたら、<br>ぜひ一度お話しさせてください。</p>
+    <p class="cta-sub">あなたの活動と理念が、このチームの力になります。</p>
+    <div class="cta-catchcopy">
+      <span class="cta-cc">よく生き、しっかり遺し、納得して旅立つ。</span>
+      <span class="cta-cc">遺すことは、生ききること。</span>
+      <span class="cta-cc">ワクワク生きて、納得して終える。</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Team ワクワクコロリ</p>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold:.12 });
+document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+
+// Hero fade in immediately
+document.querySelector('#hero .fade').classList.add('in');
+</script>
+</body>
+</html>
